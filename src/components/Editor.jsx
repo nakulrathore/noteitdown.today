@@ -4,7 +4,7 @@ import logo from "../icons/apple-icon-76x76.png";
 
 class Editor extends Component {
   componentDidMount() {
-    this.Editor.value = localStorage.idd;
+    this.Editor.value = localStorage.idd ? localStorage.idd : "";
     this.Editor.focus();
   }
 
@@ -66,9 +66,7 @@ class Editor extends Component {
           name="editor"
           id="editor"
           placeholder="type here..."
-          autofocus
         >
-          hello there
         </textarea>
       </section>
     );
