@@ -3,6 +3,13 @@ import logo from "../icons/apple-icon-76x76.png";
 // import logo from "../public/icons/apple-icon-76x76.png";
 
 class Editor extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+
+
   componentDidMount() {
     this.Editor.value = localStorage.idd ? localStorage.idd : "";
     this.Editor.focus();
@@ -12,13 +19,15 @@ class Editor extends Component {
     localStorage.idd = event.target.value;
   }
 
-  copyText(){
+  copyText(action){
+    this.props.captureAction(action);
     this.Editor.select();
     document.execCommand('copy');
     this.Editor.focus();
   }
 
-  saveTextAsFile() {
+  saveTextAsFile(action) {
+    this.props.captureAction(action);
     let textToWrite = this.Editor.value;
     textToWrite = textToWrite.replace(/\n/g, "\r\n");
     let textFileAsBlob = new Blob([textToWrite], { type: "text/plain" });
@@ -54,8 +63,8 @@ class Editor extends Component {
             <span>note</span>
           </a>
           <section className="controlls">
-            <button onClick={this.saveTextAsFile.bind(this)}>⌔ download</button>
-            <button onClick={this.copyText.bind(this)}>○ copy</button>
+            <button onClick={this.saveTextAsFile.bind(this, "download")}>⌔ download</button>
+            <button onClick={this.copyText.bind(this, "copy")}>○ copy</button>
           </section>
         </div>
         <textarea

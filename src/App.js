@@ -1,13 +1,30 @@
-import React from 'react';
-import Editor from './components/Editor';
-import './App.scss';
+import React, { Component } from "react";
+import "./App.scss";
+import ReactGA from "react-ga";
+import Editor from "./components/Editor";
 
-function App() {
-  return (
-    <div className="App">
-      <Editor/>
-    </div>
-  );
+class App extends Component {
+  initializeReactGA() {
+    ReactGA.initialize("UA-146775995-1");
+    ReactGA.pageview("/");
+  }
+
+  captureAction(action) {
+    ReactGA.event({
+      category: "User",
+      action
+    });
+  }
+  componentWillMount() {
+    this.initializeReactGA();
+  }
+  render() {
+    return (
+      <div className="App">
+        <Editor captureAction={this.captureAction} />
+      </div>
+    );
+  }
 }
 
 export default App;
