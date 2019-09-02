@@ -10,6 +10,21 @@ $break-large: 768px;
   box-sizing: border-box;
 }
 
+:root {
+  --bg-color: #fff;
+  --text-color: #2E2C32;
+}
+
+[data-theme="dark"] {
+  --bg-color: #2E2C32;
+  --text-color: #fff;
+}
+body, html{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
 .App {
   height: 100vh;
   width: 100vw;
@@ -22,10 +37,11 @@ $break-large: 768px;
   }
 }
 
+
 .header {
   padding: 10px;
   font-size: 15px;
-  color: #394560;
+  color: inherit;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -56,15 +72,17 @@ $break-large: 768px;
     width: auto;
     font-family: $OpenSans;
     align-items: center;
-
+    color: inherit;
+    
     button {
+      color: inherit;
       margin-left: 10px;
       font-size: 15px;
       border: none;
       background: none;
       padding: 7px;
       cursor: pointer;
-
+      
       &:hover {
         background: #eee;
       }
@@ -77,6 +95,7 @@ $break-large: 768px;
   height: 100%;
   width: 100%;
   padding: 30px 50px;
+  color: inherit;
   border: none;
   box-shadow: none;
 
@@ -90,6 +109,7 @@ $break-large: 768px;
   font-family: $OpenSans;
   font-size: 15px;
   line-height: 20px;
+  background-color: inherit;
 
   @media screen and (max-width: $break-large) {
     padding: 7px;
@@ -109,3 +129,70 @@ $break-large: 768px;
     background-color: #999;
   }
 }
+
+
+
+// switch style
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ecf0f1;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 20px;
+  left: 0px;
+  bottom: 1px;
+  background-color: #000;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #34495e;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #34495e;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+  
+}
+
+.slider.round:before {
+  border-radius: 50%;
+  // background-color: transparent;
+  // border: 1px solid red;
+}
+// switch style

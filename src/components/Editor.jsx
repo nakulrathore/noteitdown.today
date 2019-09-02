@@ -3,14 +3,21 @@ import logo from "../icons/apple-icon-76x76.png";
 // import logo from "../public/icons/apple-icon-76x76.png";
 
 class Editor extends Component {
-
   constructor(props) {
     super(props);
+    this.state = {
+      darkMode: false
+    };
   }
 
-
-
   componentDidMount() {
+    var newState = Object.assign({}, this.state);
+    // eslint-disable-next-line 
+    newState.darkMode = localStorage.darkMode ? localStorage.darkMode == 'true'  : false; 
+    document.documentElement.setAttribute('data-theme', newState.darkMode ? 'dark' : 'light');
+
+    this.setState(newState);
+
     this.Editor.value = localStorage.idd ? localStorage.idd : "";
     this.Editor.focus();
   }
@@ -19,10 +26,10 @@ class Editor extends Component {
     localStorage.idd = event.target.value;
   }
 
-  copyText(action){
+  copyText(action) {
     this.props.captureAction(action);
     this.Editor.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     this.Editor.focus();
   }
 
@@ -54,6 +61,15 @@ class Editor extends Component {
     downloadLink.click();
   }
 
+  toggleDarkMode(event) {
+    let newState = Object.assign({}, this.state);
+    let value = event.target.checked;
+    newState.darkMode = value;
+    localStorage.darkMode = value;
+    document.documentElement.setAttribute('data-theme', value ? 'dark' : 'light');
+    this.setState(newState);
+  }
+
   render() {
     return (
       <section>
@@ -63,6 +79,10 @@ class Editor extends Component {
             <span>note</span>
           </a>
           <section className="controlls">
+            <label class="switch" title="switch theme">
+              <input type="checkbox" checked={this.state.darkMode} onChange={this.toggleDarkMode.bind(this)} />
+              <span class="slider round"></span>
+            </label>
             <button onClick={this.saveTextAsFile.bind(this, "download")}>⌔ download</button>
             <button onClick={this.copyText.bind(this, "copy")}>○ copy</button>
           </section>
@@ -75,8 +95,7 @@ class Editor extends Component {
           name="editor"
           id="editor"
           placeholder="type here..."
-        >
-        </textarea>
+        ></textarea>
       </section>
     );
   }
