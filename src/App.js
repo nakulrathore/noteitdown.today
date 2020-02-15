@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import Header from "./components/Header";
+import Editor from "./components/Editor";
 import "./App.scss";
 import ReactGA from "react-ga";
-import Editor from "./components/Editor";
 
 class App extends Component {
   initializeReactGA() {
@@ -21,7 +22,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Editor captureAction={this.captureAction} />
+        <section>
+          <Header/>
+          <Editor captureAction={this.captureAction} />
+        </section>
       </div>
     );
   }
