@@ -22,10 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <section>
           <Header/>
           <Editor captureAction={this.captureAction} />
-        </section>
       </div>
     );
   }
