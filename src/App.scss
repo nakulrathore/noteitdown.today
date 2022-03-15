@@ -99,9 +99,10 @@ html {
         }
       }
       .logo{
+        font-size : 22px;
         @media screen and (max-width : $break-large){
 
-          font-size: 30px;
+          font-size: 18px;
           
         }
       }
@@ -117,12 +118,14 @@ html {
     outline: none;
 
     font-family: $OpenSans;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 20px;
     color: inherit;
     background-color: inherit;
     box-shadow: none;
-
     resize: none;
+    &.compact-mode{
+      padding: 10px;
+    }
   }
 }

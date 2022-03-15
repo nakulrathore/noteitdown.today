@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-function Editor() {
+function Editor({ inCompactMode }) {
   const [textToSet, setTextToSet] = useState("");
+  const editorRef = useRef(null);
 
   useEffect(() => {
-    setTextToSet(localStorage.idd ? localStorage.idd : "");
-    document.getElementById('editor').focus()
+    setTextToSet(localStorage.noteText ? localStorage.noteText : "");
+    editorRef.current.focus();
   }, []);
-
 
   function handleChange(event) {
     const text = event.target.value;
-    localStorage.idd = text;
+    localStorage.noteText = text;
     setTextToSet(text);
   }
 
   return (
     <textarea
+      ref={editorRef}
       onChange={handleChange}
       name="editor"
       id="editor"
-      placeholder="type here..."
+      placeholder="Start typing..."
       value={textToSet}
+      className={inCompactMode ? "compact-mode" : ""}
     ></textarea>
   );
 }

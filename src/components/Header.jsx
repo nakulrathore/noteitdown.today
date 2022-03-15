@@ -22,22 +22,17 @@ function Header() {
     setAttribute(!isDarkMode);
   }
 
-
   function copyText() {
-    document.getElementById('editor').select();
+    document.getElementById("editor").select();
     document.execCommand("copy");
   }
-
 
   function saveTextAsFile() {
     let textToWrite = localStorage.idd ? localStorage.idd : "";
     textToWrite = textToWrite.replace(/\n/g, "\r\n");
     let textFileAsBlob = new Blob([textToWrite], { type: "text/plain" });
 
-    let utc = new Date()
-      .toJSON()
-      .slice(0, 10)
-      .replace(/-/g, "/");
+    let utc = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
     let fileNameToSaveAs = `note ${utc}.txt`;
     let downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
@@ -48,7 +43,7 @@ function Header() {
     } else {
       // Firefox requires the link to be added to the DOM before it can be clicked.
       downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-      downloadLink.onclick = event => document.body.removeChild(event.target);
+      downloadLink.onclick = (event) => document.body.removeChild(event.target);
       downloadLink.style.display = "none";
       document.body.appendChild(downloadLink);
     }
@@ -59,17 +54,15 @@ function Header() {
   return (
     <header>
       <button className="logo-dropdown">
-        <span className="logo">
-          fuckingNotepad
-        </span>
+        <span className="logo">miniPad</span>
         <ul className="dropdown">
           <li onClick={toggleDarkMode} className={`theme-indicator`}>
-            {!isDarkMode ? "dark" : "light"}Theme
+            {!isDarkMode ? "Dark " : "Light "}Theme
           </li>
-          <li onClick={saveTextAsFile}>download</li>
-          <li onClick={copyText}>copy</li>
+          <li onClick={saveTextAsFile}>Download txt file</li>
+          <li onClick={copyText}>Copy everything</li>
           <div className="info">
-            works offline, data dosn't leave your browser
+            miniPad works offline, data dosn't leave your browser.
           </div>
         </ul>
       </button>
